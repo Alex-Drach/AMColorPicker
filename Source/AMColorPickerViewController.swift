@@ -16,6 +16,7 @@ public class AMColorPickerViewController: UIViewController, AMColorPicker {
         case slider = 2
     }
     
+    weak public var finishDelegate: AMColorPickerViewControllerDelegate?
     weak public var delegate: AMColorPickerDelegate?
     public var selectedColor: UIColor = .white
     public var isCloseButtonShown: Bool = true {
@@ -95,11 +96,13 @@ public class AMColorPickerViewController: UIViewController, AMColorPicker {
     }
     
     @IBAction private func tappedCloseButton(_ sender: UIButton) {
+        finishDelegate?.pickerController(self, didFinishWith: selectedColor)
         dismiss(animated: true, completion: nil)
     }
 }
 
 extension AMColorPickerViewController: AMColorPickerDelegate {
+    
     public func colorPicker(_ colorPicker: AMColorPicker, didSelect color: UIColor) {
         if colorPicker == cpTableView {
             cpSliderView.selectedColor = color
@@ -111,7 +114,7 @@ extension AMColorPickerViewController: AMColorPickerDelegate {
             cpTableView.selectedColor = color
             cpSliderView.selectedColor = color
         }
-        
+        selectedColor = color
         delegate?.colorPicker(self, didSelect: color)
     }
 }

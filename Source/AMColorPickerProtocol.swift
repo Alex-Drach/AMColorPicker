@@ -8,10 +8,18 @@
 
 import UIKit
 
+
+/// Delegates the AMColorPickerViewController close action.
+public protocol AMColorPickerViewControllerDelegate: AnyObject {
+    
+    func pickerController(_ pickerController: AMColorPickerViewController, didFinishWith color: UIColor)
+}
+
 public protocol AMColorPicker: NSObject {
 }
 
-public protocol AMColorPickerDelegate: class {
+public protocol AMColorPickerDelegate: AnyObject {
+    
     func colorPicker(_ colorPicker: AMColorPicker, didSelect color: UIColor)
 }
 
